@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="planner" default="teb"/>
+  <group if="$(eval planner == 'dwa')">
+    
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      
+      <rosparam file="$(find bogie_navigation)/config/costmap/dwa/dwa_planner.yaml" command="load"/>
+
+      <rosparam file="$(find bogie_navigation)/config/costmap/dwa/common_costmap.yaml" command="load" ns="global_costmap" />
+      <rosparam file="$(find bogie_navigation)/config/costmap/dwa/common_costmap.yaml" command="load" ns="local_costmap" />
+      
+      <rosparam file="$(find bogie_navigation)/config/costmap/dwa/local_costmap.yaml" command="load" ns="local_costmap" />
+      <rosparam file="$(find bogie_navigation)/config/costmap/dwa/global_costmap.yaml" command="load" ns="global_costmap" /> 
+
+    </node> 
+    
+  </group>
+
+  <group if="$(eval planner == 'teb')">
+      <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      
+      <rosparam file="$(find bogie_navigation)/config/costmap/teb/costmap_common_params.yaml"     command="load" ns="global_costmap"/>
+      <rosparam file="$(find bogie_navigation)/config/costmap/teb/costmap_common_params.yaml"     command="load" ns="local_costmap" />
+      
+      <rosparam file="$(find bogie_navigation)/config/costmap/teb/global_costmap_params.yaml"     command="load"/>
+      <rosparam file="$(find bogie_navigation)/config/costmap/teb/local_costmap_params.yaml"      command="load"  />
+
+      <rosparam file="$(find bogie_navigation)/config/costmap/teb/move_base_params.yaml"          command="load" /> 
+      <rosparam file="$(find bogie_navigation)/config/costmap/teb/global_planner_params.yaml"     command="load" />
+      <rosparam file="$(find bogie_navigation)/config/costmap/teb/teb_local_planner_params.yaml"  command="load" />
+
+    </node> 
+  </group>
+</launch>

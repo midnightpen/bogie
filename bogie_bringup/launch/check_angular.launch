@@ -1,0 +1,9 @@
+\ t<launch>
+    <node name="calibrate_angular" pkg="bogie_bringup" type="check_angular.py" output="screen">
+        <param name="test_angle"     value="360.0"/><!-- unit:degree -->
+        <param name="speed"          value="0.3"/><!-- unit:rad/s -->
+
+	    <param name="base_frame"     value="/base_footprint"/>
+        <param name="odom_frame"     value="/odom"/>
+    </node>
+</launch>

@@ -1,0 +1,32 @@
+local_costmap:
+
+    #set the update frequences (Hz)
+    update_frequency: 5
+
+    # set the publish frequency of the visualization information
+    publish_frequency: 5
+
+    # define what coordinate frames the costmap should run in 
+    global_frame: map
+    
+    # the coordinate frame in costmap should reference for the base of the robot
+    robot_base_frame: base_footprint #delault base_footprint
+    
+    # Whether or not the costmap initialize itself based on a map serverd by the map_server
+    static_map: false
+ 
+    # Whether the costmap will remain centered around the robot as the rovot moves through the world
+    rolling_windows: true
+
+    # Setting the width, height and resolution of the costmap || (meters) (meters/cell)
+    width: 2.0
+    height: 2.0
+    resolution: 0.1
+    origin_x: -1
+    origin_y: -1
+
+    # Constructing the Mulit-Layered Costmap
+    plugins:
+        # - {name: static, type: "costmap_2d::StaticLayer"}
+        - {name: sensor_obstacle, type: "costmap_2d::ObstacleLayer"}
+        - {name: inflation, type: "costmap_2d::InflationLayer"}

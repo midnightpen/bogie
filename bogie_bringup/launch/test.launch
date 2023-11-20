@@ -1,0 +1,39 @@
+<launch>
+    <arg name="rviz" default="true" />
+    <arg name="rplidar" default="false" />
+    <arg name="imu" default="false" />
+    <arg name="teleop" default="false" />
+    <arg name="camera" default="false" />
+    <arg name="rf2o" default="false" />
+
+    <node name="bogie_bringup_node" pkg="bogie_bringup" type="base_controller" output="screen">
+        <!-- serial_com set-->
+        <param name="com_port" value="/dev/ttyS5"/>
+
+        <!-- motor param set -->
+        <param name="speed_ratio"          value="0.00029"/><!-- unit:m/encode 0.00029 -->
+	    <param name="wheel_distance"       value="0.4199"/><!-- unit:m 0.4199 -->
+        <param name="encode_sampling_time" value="0.04"/><!-- unit:s 0.04 -->
+
+        <!-- velocity limit -->
+        <param name="cmd_vel_linear_max"   value="1.5"/><!-- unit:m/s 1.5-->
+        <param name="cmd_vel_angular_max"  value="2.0"/><!-- unit:rad/s 2.0-->  
+
+        <!-- other -->
+        <param name="cmd_vel_topic"                value="cmd_vel"/>
+        <param name="odom_pub_topic"               value="odom_raw" if="$(arg imu)"/>
+        <param name="odom_pub_topic"               value="odom" unless="$(arg imu)"/>
+
+        <param name="wheel_left_speed_pub_topic"   value="wheel_left_speed"/>
+        <param name="wheel_right_speed_pub_topic"  value="wheel_right_speed"/>
+        <param name="odom_frame_id"                value="odom_raw" if="$(arg imu)"/>
+        <param name="odom_frame_id"                value="odom" unless="$(arg imu)"/>
+
+        <param name="odom_child_frame_id"          value="base_footprint_raw" if="$(arg imu)"/>
+        <param name="odom_child_frame_id"          value="base_footprint" unless="$(arg imu)"/>
+    </node>
+    <include file="$(find bogie_description)/launch/bogie_description.launch"/>
+
+
+    
+</launch>

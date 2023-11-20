@@ -1,0 +1,11 @@
+<launch>
+
+    <arg name="waypoints" default="[[0.0,0.0,0.0],[1.5,-0.2,4.71],[1.5,-0.2,0.0],[1.5,0.3,0.0],[4.0,0.3,0.0],[4.0,-0.2,4.71],[4.0,-0.2,3.14],[1.5,0.3,3.14],[1.5,-0.2,4.71],[1.5,-0.2,3.14],[0.0,0.0,0.0]]" />
+    <arg name="loop" default="true"/>
+
+    <node name="send_waypoints_node" pkg="bogie_navigation" type="send_goal.py" output="screen">
+        <param name="waypoints" value="$(arg waypoints)" />
+        <param name="loop" value="$(arg loop)" />
+
+    </node>
+</launch>

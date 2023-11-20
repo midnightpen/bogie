@@ -1,0 +1,7 @@
+<launch>
+	<node pkg="imu_module" name="imu_read" type="serial_imu">
+		<param name="com_port" value="/dev/imu"/>
+		<param name="imu_pub_topic" value="/imu_data"/>
+		<param name="imu_frame_id" value="imu_link"/>
+	</node>
+</launch>

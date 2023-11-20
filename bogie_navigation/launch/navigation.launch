@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="initial_pose_x" default="0.0"/>
+    <arg name="initial_pose_y" default="0.0"/>
+    <arg name="initial_pose_a" default="0.0"/>
+
+    <arg name="map_file" default="$(find bogie_navigation)/map/map.yaml"/>
+    <arg name="planner" default="teb"/>
+
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bogie_navigation)/config/rviz/nav_config.rviz"/>
+
+    <include file="$(find bogie_navigation)/launch/amcl.launch">
+        <arg name="initial_pose_x" default="$(arg initial_pose_x)"/>
+        <arg name="initial_pose_y" default="$(arg initial_pose_y)"/>
+        <arg name="initial_pose_a" default="$(arg initial_pose_a)"/>
+    </include>
+
+
+    <include file="$(find bogie_navigation)/launch/move_base.launch" > 
+        <arg name="planner" value="$(arg planner)"/>
+    </include>
+  
+</launch>   
